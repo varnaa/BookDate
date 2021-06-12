@@ -26,7 +26,7 @@
 - street - string
 - city - string
 - state - string
-- zip - string
+- zip - int
 - country - string
 
 ---
