@@ -11,33 +11,42 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
 
-    @JoinColumn
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Subscription> subscriptions;
     @Id
     @JsonProperty(value = "customer_id")
     private String customerId;
+
     @JsonProperty(value = "display_name")
     private String displayName;
+
     @JsonProperty(value = "first_name")
     private String firstName;
+
     @JsonProperty(value = "last_name")
     private String lastName;
+
     @JsonProperty(value = "email")
     private String email;
+
     @JsonProperty(value = "mobile")
     private int mobile;
-    @JoinColumn
-    @OneToOne
-    private User user;
+
     @JoinColumn
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonProperty(value = "shipping_address")
     private ShippingAddress shippingAddress;
+
     @JoinColumn
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonProperty(value = "billing_address")
     private BillingAddress billingAddress;
+
+    @JoinColumn
+    @OneToOne
+    private User user;
+
+    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Subscription> subscriptions;
 
     public Customer() {
     }
