@@ -10,8 +10,8 @@
 
 #### Customer
 
-- customer_id - string
-- displayName - string 
+- customerId - string
+- displayName - string
 - firstName - string
 - lastName - string
 - email - string  
@@ -33,34 +33,36 @@
 
 #### Subscriptions
 
-- subscription_id - string 
-- customer_id - string
-- activatedAt - string 
+- subscription_id - string
+- customerId - string
+- activatedAt - string
 - expiresAt - string
 - lastBillingAt - string
-- nextBillingAt - string  
-- end_of_term - boolean
-- plans - entity (many - 1)
-- addOns - entity (many - many)
+- nextBillingAt - string
+- endOfTerm - boolean
+- plan - entity (many - 1)
+- List<AddOn<L>> - entity (many - many)
 
-#### Add-Ons
-- name - string
+#### Add-On
+
+- addOnCode - string
 - unit - string
 - unitName - string
 - price - string
 - type - string
 
-#### Plans
+#### Plan
+
 - planCode - string
 - planDescription - string
 - price - int
 - billingCycles - int
 
+#### Hosted Page
 
-#### Hosted Pages
-- customer_id - string
+- customerId - string
 - plan - entity
-- addons - entity
+- List<Addon> - entity
 - couponCode - string
-
+- subscriptionId - string
 
