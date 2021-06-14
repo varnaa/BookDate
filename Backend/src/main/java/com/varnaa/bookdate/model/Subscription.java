@@ -29,6 +29,9 @@ public class Subscription {
     @JsonProperty(value = "end_of_term")
     private boolean endOfTerm;
 
+    @JsonProperty
+    private String status;
+
     @JoinColumn
     @ManyToOne
     @JsonProperty(value = "plan")
@@ -38,6 +41,20 @@ public class Subscription {
     @ManyToMany
     @JsonProperty(value = "add_ons")
     private List<AddOn> addOns;
+
+    public Subscription(){}
+
+    public Subscription(String subscriptionId, String activatedAt, String expiresAt, String lastBillingAt, String nextBillingAt, boolean endOfTerm, String status, Plan plan, List<AddOn> addOns) {
+        this.subscriptionId = subscriptionId;
+        this.activatedAt = activatedAt;
+        this.expiresAt = expiresAt;
+        this.lastBillingAt = lastBillingAt;
+        this.nextBillingAt = nextBillingAt;
+        this.endOfTerm = endOfTerm;
+        this.status = status;
+        this.plan = plan;
+        this.addOns = addOns;
+    }
 
     public String getSubscriptionId() {
         return subscriptionId;
@@ -101,5 +118,13 @@ public class Subscription {
 
     public void setAddOns(List<AddOn> addOns) {
         this.addOns = addOns;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
