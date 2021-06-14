@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.varnaa.bookdate.model.Customer;
+import com.varnaa.bookdate.model.HostedPage;
+import com.varnaa.bookdate.model.Subscription;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,4 +36,15 @@ public class CustomDeserializer {
         return objectMapper.convertValue(customerNode, Customer.class);
     }
 
+    public String getHostedPageURL(ResponseEntity<String> response) throws JsonProcessingException {
+        JsonNode hostedPageNode = objectMapper.readTree(response.getBody()).get("hostedpage");
+        HostedPage hostedPage = objectMapper.convertValue(hostedPageNode, HostedPage.class);
+        return hostedPage.getUrl();
+    }
+
+    public Subscription getSubscription(ResponseEntity<String> response) throws JsonProcessingException {
+        JsonNode subscritpionNode = objectMapper.readTree(response.getBody()).get("subscription");
+        logger.trace("Extracted subscription node from json response");
+        return objectMapper.convertValue(subscritpionNode, Subscription.class);
+    }
 }
