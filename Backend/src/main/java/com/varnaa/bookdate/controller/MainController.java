@@ -10,14 +10,13 @@ import com.varnaa.bookdate.repository.UserRepository;
 import com.varnaa.bookdate.service.CustomerService;
 import com.varnaa.bookdate.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class MainController {
 
     @Autowired
