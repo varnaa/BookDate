@@ -40,12 +40,25 @@ public class RestTemplateService {
         logger.info("Initialized REST TEMPLATE SERVICE");
     }
 
+    /**
+     * Makes POST call to zoho subscriptions for creating new customer after
+     * serializing customer object into a json body.
+     *
+     * @param customer object
+     * @return response from the request
+     */
     public ResponseEntity<String> postCustomer(Customer customer) {
         httpEntity = new HttpEntity(customSerializer.getCustomerJSON(customer), httpHeaders);
         logger.info("POST customer call made to zoho subscription");
         return REST_TEMPLATE.postForEntity(RESOURCE_URL + "/customers", httpEntity, String.class);
     }
 
+    /**
+     * Makes POST call to Zoho subscriptions for updating existing
+     * user details after serializing customer object into a json body
+     *
+     * @param customer object
+     */
     public void updateCustomer(Customer customer) {
         httpEntity = new HttpEntity(customSerializer.getCustomerJSON(customer), httpHeaders);
         String url = RESOURCE_URL + "customers/" + customer.getCustomerId();
@@ -54,6 +67,13 @@ public class RestTemplateService {
     }
 
 
+    /**
+     * Makes POST call to Zoho subscriptions for generating hosted page link to
+     * creating new subscription after serializing hostedpage object into json body.
+     *
+     * @param hostedPage
+     * @return response from the request
+     */
     public ResponseEntity<String> hostedPageNewSubscription(HostedPage hostedPage) {
         httpEntity = new HttpEntity(customSerializer.getCreateHostedPageJSON(hostedPage), httpHeaders);
         logger.info("create hosted page for new subscription call made to zoho subscription");
@@ -61,6 +81,13 @@ public class RestTemplateService {
     }
 
 
+    /**
+     * Makes POST call to Zoho subscriptions for generating hosted page link for
+     * updating existing subscription after serializing hostedpage object into json body.
+     *
+     * @param hostedPage
+     * @return response from the request
+     */
     public ResponseEntity<String> hostedPageUpdateSubscription(HostedPage hostedPage) {
         httpEntity = new HttpEntity(customSerializer.getUpdateHostedPageJSON(hostedPage), httpHeaders);
         logger.info("create hosted page for update subscription call made to zoho subscription");
@@ -68,6 +95,12 @@ public class RestTemplateService {
     }
 
 
+    /**
+     * Makes POST call to Zoho subscriptions to cancel existing subscription
+     *
+     * @param subscriptionId to be cancelled
+     * @return response from the request
+     */
     public ResponseEntity<String> cancelSubscription(String subscriptionId) {
         httpEntity = new HttpEntity(httpHeaders);
         logger.info("cancel subscription call made to zoho subscription");
@@ -76,6 +109,12 @@ public class RestTemplateService {
                                            subscriptionId);
     }
 
+    /**
+     * Makes POST call to Zoho subscriptions to reactivate a subscription
+     *
+     * @param subscriptionId to be cancelled
+     * @return response from the request
+     */
     public ResponseEntity<String> reactivateSubscription(String subscriptionId) {
         httpEntity = new HttpEntity(httpHeaders);
         logger.info("reactivate subscription call made to zoho subscription");
@@ -84,6 +123,12 @@ public class RestTemplateService {
                                            subscriptionId);
     }
 
+    /**
+     * Makes GET call to Zoho subscriptions to retrieve the details of hosted page link
+     *
+     * @param hostedpageId
+     * @return response from the request
+     */
     public ResponseEntity<String> getHostedPageDetails(String hostedpageId) {
         httpEntity = new HttpEntity(httpHeaders);
         String url = RESOURCE_URL + "/hostedpages/" + hostedpageId;
