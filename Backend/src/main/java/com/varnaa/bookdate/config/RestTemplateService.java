@@ -37,7 +37,6 @@ public class RestTemplateService {
         httpHeaders.set(HEADER_NAME_AUTHORIZATION, HEADER_VALUE_AUTHORIZATION_VALUE);
         httpHeaders.set(HEADER_NAME_ORGANIZATION_ID, HEADER_VALUE_ORGANIZATION_ID);
         httpHeaders.set(HEADER_NAME_CONTENT_TYPE, HEADER_VALUE_CONTENT_TYPE);
-        logger.info("Initialized REST TEMPLATE SERVICE");
     }
 
     /**
