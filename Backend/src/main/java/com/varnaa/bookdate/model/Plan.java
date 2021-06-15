@@ -1,5 +1,6 @@
 package com.varnaa.bookdate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
@@ -8,13 +9,14 @@ import javax.persistence.Table;
 
 @Table(name = "PLAN")
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Plan {
     @Id
     @JsonProperty(value = "plan_code")
-    private String planCode;
+    private String plan_code;
 
     @JsonProperty(value = "plan_description")
-    private String planDescription;
+    private String plan_description;
 
     @JsonProperty
     private int quantity;
@@ -26,20 +28,20 @@ public class Plan {
     private int billingCycles;
 
 
-    public String getPlanCode() {
-        return planCode;
+    public String getPlan_code() {
+        return plan_code;
     }
 
-    public void setPlanCode(String planCode) {
-        this.planCode = planCode;
+    public void setPlan_code(String plan_code) {
+        this.plan_code = plan_code;
     }
 
-    public String getPlanDescription() {
-        return planDescription;
+    public String getPlan_description() {
+        return plan_description;
     }
 
-    public void setPlanDescription(String planDescription) {
-        this.planDescription = planDescription;
+    public void setPlan_description(String plan_description) {
+        this.plan_description = plan_description;
     }
 
     public int getQuantity() {

@@ -1,6 +1,7 @@
 package com.varnaa.bookdate.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -12,10 +13,20 @@ public class ShippingAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @JsonProperty
     private String street;
+
+    @JsonProperty
     private String city;
+
+    @JsonProperty
     private String state;
+
+    @JsonProperty
     private int zip;
+
+    @JsonProperty
     private String country;
 
     public ShippingAddress() {

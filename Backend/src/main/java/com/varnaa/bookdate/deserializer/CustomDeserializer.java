@@ -47,4 +47,14 @@ public class CustomDeserializer {
         logger.trace("Extracted subscription node from json response");
         return objectMapper.convertValue(subscritpionNode, Subscription.class);
     }
+
+    public Subscription getSubscriptionFromHostedpage(ResponseEntity<String> response) throws JsonProcessingException {
+        JsonNode node = objectMapper.readTree(response.getBody()).get("data");
+        System.out.println(node.toPrettyString());
+        JsonNode subscriptionNode = objectMapper.readTree(response.getBody()).get("data").get("subscription");
+        Subscription subscription = objectMapper.convertValue(subscriptionNode, Subscription.class);
+        System.out.println(subscription.getCustomerId());
+        logger.info("Extracted subscription node from json response");
+        return subscription;
+    }
 }

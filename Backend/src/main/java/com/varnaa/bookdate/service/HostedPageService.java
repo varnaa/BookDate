@@ -23,13 +23,13 @@ public class HostedPageService {
 
     public String getUrlForCreateSubscription(HostedPage hostedPage) throws JsonProcessingException {
         ResponseEntity<String> response = restTemplateService.hostedPageNewSubscription(hostedPage);
-        logger.trace("created hosted page for new subscription");
+        logger.info("created hosted page for new subscription");
         return customDeserializer.getHostedPageURL(response);
     }
 
     public String getUrlForUpdateSubscription(HostedPage hostedPage) throws JsonProcessingException {
-        ResponseEntity<String> response = restTemplateService.hostedPageSubscription(hostedPage);
-        logger.trace("created hosted page for update subscription");
+        ResponseEntity<String> response = restTemplateService.hostedPageUpdateSubscription(hostedPage);
+        logger.info("created hosted page for update subscription");
         return customDeserializer.getHostedPageURL(response);
     }
 

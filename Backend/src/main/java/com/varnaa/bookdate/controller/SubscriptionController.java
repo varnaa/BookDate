@@ -3,7 +3,6 @@ package com.varnaa.bookdate.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.varnaa.bookdate.model.HostedPage;
 import com.varnaa.bookdate.model.Subscription;
-import com.varnaa.bookdate.service.CustomerService;
 import com.varnaa.bookdate.service.HostedPageService;
 import com.varnaa.bookdate.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer/{customerId}/subscriptions")
+@RequestMapping("/customers/{customerId}/subscriptions")
 public class SubscriptionController {
-
-    @Autowired
-    private CustomerService customerService;
 
     @Autowired
     private HostedPageService hostedPageService;
 
     @Autowired
     private SubscriptionService subscriptionService;
+
 
     @PostMapping("/")
     public ResponseEntity<String> postNewSubscription(@RequestBody HostedPage hostedPage) throws JsonProcessingException {
@@ -41,7 +38,7 @@ public class SubscriptionController {
     @GetMapping("/")
     public @ResponseBody
     List<Subscription> getAllSubscriptions(@PathVariable String customerId) {
-        return customerService.getAllSubscriptionsById(customerId);
+        return subscriptionService.getAll(customerId);
     }
 
     @PostMapping("/{subscriptionId}/cancel")

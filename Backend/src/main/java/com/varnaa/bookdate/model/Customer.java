@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Table(name = "CUSTOMER")
 @Entity
@@ -31,27 +30,25 @@ public class Customer {
     private int mobile;
 
     @JoinColumn
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonProperty(value = "shipping_address")
     private ShippingAddress shippingAddress;
 
     @JoinColumn
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonProperty(value = "billing_address")
     private BillingAddress billingAddress;
 
     @JoinColumn
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private User user;
 
-    @JoinColumn
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Subscription> subscriptions;
 
     public Customer() {
     }
 
-    public Customer(String displayName, String firstName, String lastName, String email, int mobile, String password, ShippingAddress shippingAddress, BillingAddress billingAddress) {
+    public Customer(String customerId, String displayName, String firstName, String lastName, String email, int mobile, ShippingAddress shippingAddress, BillingAddress billingAddress, User user) {
+        this.customerId = customerId;
         this.displayName = displayName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -59,6 +56,7 @@ public class Customer {
         this.mobile = mobile;
         this.shippingAddress = shippingAddress;
         this.billingAddress = billingAddress;
+        this.user = user;
     }
 
     public User getUser() {
@@ -67,14 +65,6 @@ public class Customer {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public List<Subscription> getSubscriptions() {
-        return subscriptions;
-    }
-
-    public void setSubscriptions(List<Subscription> subscriptions) {
-        this.subscriptions = subscriptions;
     }
 
     public String getCustomerId() {
@@ -140,5 +130,6 @@ public class Customer {
     public void setShippingAddress(ShippingAddress shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
+
 
 }

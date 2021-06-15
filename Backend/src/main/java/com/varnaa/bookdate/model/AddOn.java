@@ -14,35 +14,41 @@ public class AddOn {
 
     @Id
     @JsonProperty(value = "addon_code")
-    private String addOnCode;
-    private String unit;
+    private String addon_code;
+
+    @JsonProperty
+    private String quantity;
+
+    @JsonProperty
     private String type;
+
+    @JsonProperty
     private int price;
 
     public AddOn() {
     }
 
-    public AddOn(String addOnCode, String unit, String type, int price) {
-        this.addOnCode = addOnCode;
-        this.unit = unit;
+    public AddOn(String addon_code, String quantity, String type, int price) {
+        this.addon_code = addon_code;
+        this.quantity = quantity;
         this.type = type;
         this.price = price;
     }
 
-    public String getAddOnCode() {
-        return addOnCode;
+    public String getAddon_code() {
+        return addon_code;
     }
 
-    public void setAddOnCode(String addOnCode) {
-        this.addOnCode = addOnCode;
+    public void setAddon_code(String addon_code) {
+        this.addon_code = addon_code;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     public String getType() {

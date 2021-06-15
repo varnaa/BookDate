@@ -14,6 +14,9 @@ public class Subscription {
     @JsonProperty(value = "subscription_id")
     private String subscriptionId;
 
+    @JsonProperty(value = "customer_id")
+    private String customerId;
+
     @JsonProperty(value = "activated_at")
     private String activatedAt;
 
@@ -42,7 +45,8 @@ public class Subscription {
     @JsonProperty(value = "add_ons")
     private List<AddOn> addOns;
 
-    public Subscription(){}
+
+    public Subscription() {}
 
     public Subscription(String subscriptionId, String activatedAt, String expiresAt, String lastBillingAt, String nextBillingAt, boolean endOfTerm, String status, Plan plan, List<AddOn> addOns) {
         this.subscriptionId = subscriptionId;
@@ -126,5 +130,13 @@ public class Subscription {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 }
