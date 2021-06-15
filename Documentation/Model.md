@@ -1,27 +1,35 @@
 # Model
 
 1. Customers
-2. Address   
+2. Address
 3. Subscriptions
-4. Plans   
+4. Plans
 5. AddOns
 6. Hosted Page
+
 ---
 
 #### Customer
 
-- customerId - string
-- displayName - string
-- firstName - string
-- lastName - string
-- email - string  
-- password - string 
-- mobile - int  
-- address - entity (1 - 1)
-- List<Subscriptions<su>> - entity ( many - many)
+- customer_id - string
+- display_name - string
+- first_name - string
+- last_name - string
+- email - string
+- mobile - int
+- shipping_address - entity (1 - 1 mapping )
+- billing_address - entity (1 - 1)
+- user - entity (1 - 1)
 
+### User
 
-#### Address
+id - int
+
+email - string
+
+password - string
+
+#### Shipping & Billing Address
 
 - street - string
 - city - string
@@ -34,35 +42,39 @@
 #### Subscriptions
 
 - subscription_id - string
-- customerId - string
-- activatedAt - string
-- expiresAt - string
-- lastBillingAt - string
-- nextBillingAt - string
-- endOfTerm - boolean
+- customer_id - string
+- activated_at - string
+- expires_at - string
+- last_billing_at - string
+- next_billing_at - string
+- end_of_term - boolean
 - plan - entity (many - 1)
 - List<AddOn<L>> - entity (many - many)
 
 #### Add-On
 
-- addOnCode - string
-- unit - string
-- unitName - string
-- price - string
+- addon_code - string
+- quantity - string
+- price - int
 - type - string
 
 #### Plan
 
-- planCode - string
-- planDescription - string
+- plan_code - string
+- plan_description - string
 - price - int
-- billingCycles - int
+- billing_cycles - int
 
 #### Hosted Page
 
-- customerId - string
-- plan - entity
-- List<Addon> - entity
-- couponCode - string
-- subscriptionId - string
+- customer_id - string
 
+- coupon_code - string
+
+- starts_at - string
+
+- Plan - entity
+
+- List<AddOn<L>> - entity
+
+####  
