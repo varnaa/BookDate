@@ -1,0 +1,138 @@
+.u-section-1 .u-sheet-1 {
+  min-height: 646px;
+}
+
+.u-section-1 .u-product-1 {
+  min-height: 688px;
+  margin: 50px auto 50px 0;
+}
+
+.u-section-1 .u-container-layout-1 {
+  padding: 30px 125px 30px 30px;
+}
+
+.u-section-1 .u-text-1 {
+  width: 253px;
+  margin: 58px auto 0;
+}
+
+.u-section-1 .u-product-variations-1 {
+  width: 417px;
+  margin: 18px auto 0;
+}
+
+.u-section-1 .u-product-variations-2 {
+  width: 417px;
+  margin: 18px auto 0;
+}
+
+.u-section-1 .u-product-variations-3 {
+  width: 417px;
+  margin: 19px auto 0;
+}
+
+.u-section-1 .u-product-variations-4 {
+  width: 417px;
+  margin: 19px auto 0;
+}
+
+.u-section-1 .u-btn-1 {
+  background-image: none;
+  border-style: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 63px auto 0;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-product-1 {
+    height: auto;
+    margin-right: initial;
+    margin-left: initial;
+  }
+
+  .u-section-1 .u-text-1 {
+    width: auto;
+    margin-top: 0;
+    margin-left: 485px;
+  }
+
+  .u-section-1 .u-product-variations-1 {
+    width: 300px;
+    margin-top: 26px;
+  }
+
+  .u-section-1 .u-product-variations-2 {
+    margin-top: 6px;
+  }
+
+  .u-section-1 .u-btn-1 {
+    margin-left: 485px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-container-layout-1 {
+    padding-right: 30px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-top: 580px;
+    margin-left: 0;
+  }
+
+  .u-section-1 .u-product-variations-1 {
+    width: 330px;
+    margin-top: 18px;
+    margin-right: 330px;
+    margin-left: 0;
+  }
+
+  .u-section-1 .u-btn-1 {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-container-layout-1 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-top: 440px;
+  }
+
+  .u-section-1 .u-product-variations-1 {
+    margin-right: 190px;
+  }
+
+  .u-section-1 .u-btn-1 {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-text-1 {
+    margin-top: 250px;
+    margin-left: auto;
+  }
+
+  .u-section-1 .u-product-variations-1 {
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .u-section-1 .u-product-variations-2 {
+    width: 320px;
+  }
+
+  .u-section-1 .u-product-variations-3 {
+    width: 320px;
+  }
+
+  .u-section-1 .u-product-variations-4 {
+    width: 320px;
+  }
+}
