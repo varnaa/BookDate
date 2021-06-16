@@ -10,10 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/customers/{customerId}/subscriptions")
+@CrossOrigin("*")
 public class SubscriptionController {
 
     @Autowired
@@ -38,7 +40,9 @@ public class SubscriptionController {
     @GetMapping("/")
     public @ResponseBody
     List<Subscription> getAllSubscriptions(@PathVariable String customerId) {
-        return subscriptionService.getAll(customerId);
+        List<Subscription> list = new ArrayList<>();
+        list.addAll(subscriptionService.getAll(customerId));
+        return list;
     }
 
     @PostMapping("/{subscriptionId}/cancel")

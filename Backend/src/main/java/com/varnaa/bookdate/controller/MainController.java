@@ -12,11 +12,12 @@ import com.varnaa.bookdate.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
+@CrossOrigin("*")
 public class MainController {
 
     @Autowired
@@ -35,18 +36,23 @@ public class MainController {
     private AddOnRepository addOnRepository;
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody User loginDetails) {
-        Optional<User> user = userRepository.findById(loginDetails.getEmail());
-        if (user.isEmpty() || !user.get().getPassword().equals(loginDetails.getPassword())) {
-            return "Invalid user";
+    public Map<String, String> login(@RequestBody User loginDetails) {
+        Map<String, String> response = new HashMap<>();
+        User user = userRepository.findByEmail(loginDetails.getEmail());
+        if (user == null || !user.getPassword().equals(loginDetails.getPassword())) {
+            response.put("response", "invalid user");
+            return response;
         } else {
-            return customerService.getCustomerId(user.get().getId());
+            String customerId = customerService.getCustomerId(user.getId());
+            response.put("response", customerId);
+            return response;
         }
     }
 
     @RequestMapping("/confirmsubscription")
-    public void getHostedPage(@RequestParam("hostedpage_id") String hostedpageId) throws JsonProcessingException {
+    public String getHostedPage(@RequestParam("hostedpage_id") String hostedpageId) throws JsonProcessingException {
         subscriptionService.save(hostedpageId);
+        return "Thanks for subscribing with us.!";
     }
 
     @GetMapping("/plans")

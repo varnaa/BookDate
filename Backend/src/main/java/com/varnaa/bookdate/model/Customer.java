@@ -27,7 +27,7 @@ public class Customer {
     private String email;
 
     @JsonProperty(value = "mobile")
-    private int mobile;
+    private long mobile;
 
     @JoinColumn
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -99,11 +99,11 @@ public class Customer {
         this.email = email;
     }
 
-    public int getMobile() {
+    public long getMobile() {
         return mobile;
     }
 
-    public void setMobile(int mobile) {
+    public void setMobile(long mobile) {
         this.mobile = mobile;
     }
 

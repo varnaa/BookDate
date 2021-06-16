@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateService {
     private final String RESOURCE_URL = "https://subscriptions.zoho.in/api/v1/";
     private final String HEADER_NAME_AUTHORIZATION = "Authorization";
-    private final String HEADER_VALUE_AUTHORIZATION_VALUE = "Zoho-oauthtoken ";
+    private final String HEADER_VALUE_AUTHORIZATION_VALUE = "Zoho-oauthtoken";
     private final String HEADER_NAME_ORGANIZATION_ID = "X-com-zoho-subscriptions-organizationid";
     private final String HEADER_VALUE_ORGANIZATION_ID = "60009577496";
     private final String HEADER_NAME_CONTENT_TYPE = "Content-Type";
@@ -102,10 +102,10 @@ public class RestTemplateService {
      */
     public ResponseEntity<String> cancelSubscription(String subscriptionId) {
         httpEntity = new HttpEntity(httpHeaders);
+        String url = RESOURCE_URL + "subscriptions/" + subscriptionId + "/cancel?cancel_at_end=true";
         logger.info("cancel subscription call made to zoho subscription");
-        return REST_TEMPLATE.postForEntity(RESOURCE_URL + "subscriptions/{subscriptionId}/cancel?cancel_at_end=true",
-                                           httpEntity, String.class,
-                                           subscriptionId);
+        return REST_TEMPLATE.postForEntity(url,
+                                           httpEntity, String.class);
     }
 
     /**
@@ -116,8 +116,9 @@ public class RestTemplateService {
      */
     public ResponseEntity<String> reactivateSubscription(String subscriptionId) {
         httpEntity = new HttpEntity(httpHeaders);
+        String url = RESOURCE_URL + "/subscriptions/" + subscriptionId + "/reactivate";
         logger.info("reactivate subscription call made to zoho subscription");
-        return REST_TEMPLATE.postForEntity(RESOURCE_URL + "subscriptions/{subscriptionId}/reactivate",
+        return REST_TEMPLATE.postForEntity(url,
                                            httpEntity, String.class,
                                            subscriptionId);
     }

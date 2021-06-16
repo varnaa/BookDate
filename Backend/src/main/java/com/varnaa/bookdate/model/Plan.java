@@ -22,11 +22,21 @@ public class Plan {
     private int quantity;
 
     @JsonProperty
+    private int billing_cycles;
+
+    @JsonProperty
     private int price;
 
-    @JsonProperty(value = "billing_cycles")
-    private int billingCycles;
+    public Plan() {
+    }
 
+    public Plan(String plan_code, String plan_description, int quantity, int billing_cycles, int price) {
+        this.plan_code = plan_code;
+        this.plan_description = plan_description;
+        this.quantity = quantity;
+        this.billing_cycles = billing_cycles;
+        this.price = price;
+    }
 
     public String getPlan_code() {
         return plan_code;
@@ -60,11 +70,11 @@ public class Plan {
         this.price = price;
     }
 
-    public int getBillingCycles() {
-        return billingCycles;
+    public int getBilling_cycles() {
+        return billing_cycles;
     }
 
-    public void setBillingCycles(int billingCycles) {
-        this.billingCycles = billingCycles;
+    public void setBilling_cycles(int billing_cycles) {
+        this.billing_cycles = billing_cycles;
     }
 }

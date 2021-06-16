@@ -16,13 +16,13 @@ public class AddOn {
     @JsonProperty(value = "addon_code")
     private String addon_code;
 
-    @JsonProperty
+    @JsonProperty(value = "quantity")
     private String quantity;
 
-    @JsonProperty
+    @JsonProperty(value = "type")
     private String type;
 
-    @JsonProperty
+    @JsonProperty(value = "price")
     private int price;
 
     public AddOn() {
