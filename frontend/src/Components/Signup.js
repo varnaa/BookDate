@@ -28,7 +28,6 @@ export default class Signup extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(this.state);
 		CustomerService.postCustomer(this.state).then((response) => {
 			if (response.status >= 200 && response.status < 300) {
 				window.location.replace("/login");

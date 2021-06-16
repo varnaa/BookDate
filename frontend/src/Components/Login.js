@@ -17,10 +17,8 @@ export default class Login extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(this.state);
 		CustomerService.login(this.state).then((response) => {
 			response = response.data;
-			console.log("Customer id =>"+response);
 		if(response === "invalid user"){
 			alert("Invalid user");
 		}else{
@@ -28,8 +26,6 @@ export default class Login extends Component {
 			localStorage.removeItem("customerID");
 			localStorage.removeItem("customerId");
 			var customerid = JSON.parse(JSON.stringify(response));
-			console.log(customerid);
-			console.log(customerid.response);
 			localStorage.setItem("customerID",customerid.response);
 			window.location.replace("/");
 		}
