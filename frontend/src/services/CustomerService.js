@@ -8,7 +8,33 @@ class CustomerService{
     }
 
     postCustomer(formData){
-        return axios.post(CUSTOMER_API_URL, formData , {
+        var customer = {
+                "display_name": formData.display_name,
+                "first_name": formData.first_name,
+                "last_name": formData.last_name,
+                "email": formData.email,
+                "mobile": formData.mobile,
+                "billing_address": {
+                    "street": formData.street,
+                    "city": formData.city,
+                    "state": formData.state,
+                    "zip": formData.zip,
+                    "country": formData.country
+                },
+                "shipping_address": {
+                    "street": formData.street,
+                    "city": formData.city,
+                    "state": formData.state,
+                    "zip": formData.zip,
+                    "country": formData.country
+                },
+                "user":{
+                    "email":formData.email,
+                    "password":formData.password
+                },
+                "subscriptions":[]
+            };
+        return axios.post(CUSTOMER_API_URL, customer , {
             headers:{
                 "content-type":"application/json"
             },
@@ -30,7 +56,7 @@ class CustomerService{
 
 
     login(formData){
-        return axios.post("/login", formData , {
+        return axios.post("http://localhost:8080/login", formData , {
             headers:{
                 "content-type":"application/json"
             },

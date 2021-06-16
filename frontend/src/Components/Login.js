@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CustomerService from "../services/CustomerService";
-import Navbar from "./Navbar";
+import Navigationbar from "./Navigationbar";
+import { Button } from "react-bootstrap";
 export default class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -8,28 +9,38 @@ export default class Login extends Component {
 			email: "",
 			password: "",
 		};
-
-		this.handleChange = (event) => {
-			this.setState({ [event.target.name]: event.target.value });
-		};
-
-		this.handleSubmit = (event) => {
-			event.preventDefault();
-			// makes call to backend api
-			CustomerService.login(this.state).then((response) => {
-				if (response.status >= 200 && response.status < 300) {
-					// gets customer id from backend and stores it in session
-					localStorage.setItem("customerId", response.data);
-				} else {
-					alert("Invalid user!");
-				}
-			});
-		};
 	}
+
+	handleChange = (event) => {
+		this.setState({ [event.target.name]: event.target.value });
+	};
+
+	handleSubmit = (event) => {
+		event.preventDefault();
+		console.log(this.state);
+		CustomerService.login(this.state).then((response) => {
+			response = response.data;
+			console.log("Customer id =>"+response);
+		if(response === "invalid user"){
+			alert("Invalid user");
+		}else{
+			alert("login successfull")
+			localStorage.removeItem("customerID");
+			localStorage.removeItem("customerId");
+			var customerid = JSON.parse(JSON.stringify(response));
+			console.log(customerid);
+			console.log(customerid.response);
+			localStorage.setItem("customerID",customerid.response);
+			window.location.replace("/");
+		}
+		});
+		
+		
+	};
 	render() {
 		return (
 			<div>
-        <Navbar></Navbar>
+				<Navigationbar></Navigationbar>
 				<section
 					className="u-align-center u-clearfix u-white u-section-1"
 					id="carousel_1e5d"
@@ -41,7 +52,6 @@ export default class Login extends Component {
 						<div className="u-border-10 u-border-palette-2-base u-line u-line-horizontal u-line-1"></div>
 						<div className="u-expanded-width-xs u-form u-form-1">
 							<form
-								action=""
 								className="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form"
 							>
 								<div className="u-form-email u-form-group">
@@ -57,8 +67,7 @@ export default class Login extends Component {
 										name="email"
 										className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white"
 										required="required"
-                    value={this.state.email}
-                    onChange={this.handleChange()}
+										onChange={this.handleChange}
 									/>
 								</div>
 								<div className="u-form-group u-form-group-2">
@@ -70,26 +79,20 @@ export default class Login extends Component {
 										type="password"
 										placeholder="Enter your password"
 										name="password"
-                    required="required"
-                    value={this.state.password}
+										required="required"
 										className="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white"
-                    onChange={this.handleChange()}
+										onChange={this.handleChange}
 									/>
 								</div>
 								<div className="u-align-center u-form-group u-form-submit">
-									<a
-										href="#"
+									<Button
 										className="u-black u-btn u-btn-submit u-button-style u-custom-font u-heading-font u-hover-palette-2-base u-text-body-alt-color u-text-hover-white u-btn-1"
+										onClick={this.handleSubmit}
 									>
 										login
 										<br />
-									</a>
-									<input
-										type="submit"
-										value="submit"
-                    onClick={this.handleSubmit()}
-										className="u-form-control-hidden"
-									/>
+									</Button>
+								
 								</div>
 								<div className="u-form-send-message u-form-send-success">
 									You're account has been successfully created
