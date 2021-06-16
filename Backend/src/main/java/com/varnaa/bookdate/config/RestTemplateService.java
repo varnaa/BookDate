@@ -119,8 +119,7 @@ public class RestTemplateService {
         String url = RESOURCE_URL + "/subscriptions/" + subscriptionId + "/reactivate";
         logger.info("reactivate subscription call made to zoho subscription");
         return REST_TEMPLATE.postForEntity(url,
-                                           httpEntity, String.class,
-                                           subscriptionId);
+                                           httpEntity, String.class);
     }
 
     /**
