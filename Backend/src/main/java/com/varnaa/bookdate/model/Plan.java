@@ -3,15 +3,17 @@ package com.varnaa.bookdate.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "PLAN")
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Plan {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private int id;
+
     @JsonProperty(value = "plan_code")
     private String plan_code;
 
@@ -21,7 +23,7 @@ public class Plan {
     @JsonProperty
     private int quantity;
 
-    @JsonProperty
+    @JsonProperty(value="billing_cycles")
     private int billing_cycles;
 
     @JsonProperty
@@ -30,7 +32,8 @@ public class Plan {
     public Plan() {
     }
 
-    public Plan(String plan_code, String plan_description, int quantity, int billing_cycles, int price) {
+    public Plan(int id, String plan_code, String plan_description, int quantity, int billing_cycles, int price) {
+        this.id = id;
         this.plan_code = plan_code;
         this.plan_description = plan_description;
         this.quantity = quantity;
@@ -76,5 +79,13 @@ public class Plan {
 
     public void setBilling_cycles(int billing_cycles) {
         this.billing_cycles = billing_cycles;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

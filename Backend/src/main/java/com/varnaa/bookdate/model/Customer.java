@@ -131,5 +131,4 @@ public class Customer {
         this.shippingAddress = shippingAddress;
     }
 
-
 }

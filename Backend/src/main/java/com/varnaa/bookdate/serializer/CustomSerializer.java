@@ -28,14 +28,12 @@ public class CustomSerializer {
 
     public String getCreateHostedPageJSON(HostedPage hostedPage) {
         JSONObject jsonObject = new JSONObject();
+        System.out.println(hostedPage.getPlan().getBilling_cycles());
         jsonObject.put("customer_id", hostedPage.getCustomerId());
         jsonObject.put("plan", hostedPage.getPlan());
-        if (hostedPage.getAddons() != null)
-            jsonObject.put("addons", hostedPage.getAddons());
-        if (hostedPage.getStartsAt() != null)
-            jsonObject.put("starts_at", hostedPage.getStartsAt());
-        if (hostedPage.getCouponCode() != null)
-            jsonObject.put("coupon_code", hostedPage.getCouponCode());
+        jsonObject.put("addons", hostedPage.getAddons());
+        jsonObject.put("starts_at", hostedPage.getStartsAt());
+        jsonObject.put("coupon_code", hostedPage.getCouponCode());
         logger.info("successfully converted hosted page POJO to json format");
         return jsonObject.toJSONString();
     }
