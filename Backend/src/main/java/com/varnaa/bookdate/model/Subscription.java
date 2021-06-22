@@ -35,14 +35,14 @@ public class Subscription {
     @JsonProperty
     private String status;
 
-    @JoinColumn
-    @ManyToOne
+    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonProperty(value = "plan")
     private Plan plan;
 
-    @JoinColumn
-    @ManyToMany
-    @JsonProperty(value = "add_ons")
+    @JoinColumn(name = "addon_code")
+    @OneToMany
+    @JsonProperty(value = "addons")
     private List<AddOn> addOns;
 
 

@@ -3,13 +3,12 @@ package com.varnaa.bookdate.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "ADD_ON")
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class AddOn {
 
     @Id
@@ -19,11 +18,14 @@ public class AddOn {
     @JsonProperty(value = "quantity")
     private String quantity;
 
-    @JsonProperty(value = "type")
-    private String type;
-
     @JsonProperty(value = "price")
     private int price;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "subscription_id")
+    private Subscription subscription;
+
+    public Subscription getSubscription() { return subscription; }
 
     public AddOn() {
     }
@@ -31,7 +33,6 @@ public class AddOn {
     public AddOn(String addon_code, String quantity, String type, int price) {
         this.addon_code = addon_code;
         this.quantity = quantity;
-        this.type = type;
         this.price = price;
     }
 
@@ -49,14 +50,6 @@ public class AddOn {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getPrice() {
