@@ -24,7 +24,7 @@ public class CustomerController {
     public ResponseEntity<Customer> getCustomer(@PathVariable String customerId) {
         Customer customer = customerService.findById(customerId);
         if (customer == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity("invalid id", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }

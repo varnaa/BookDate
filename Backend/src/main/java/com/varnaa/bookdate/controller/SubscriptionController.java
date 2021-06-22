@@ -47,13 +47,23 @@ public class SubscriptionController {
 
     @PostMapping("/{subscriptionId}/cancel")
     public HttpStatus cancel(@PathVariable String subscriptionId) throws JsonProcessingException {
-        subscriptionService.cancel(subscriptionId);
-        return HttpStatus.OK;
+        try {
+            subscriptionService.cancel(subscriptionId);
+            return HttpStatus.OK;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @PostMapping("/{subscriptionId}/reactivate")
     public HttpStatus reactivate(@PathVariable String subscriptionId) throws JsonProcessingException {
-        subscriptionService.reactivate(subscriptionId);
-        return HttpStatus.OK;
+        try {
+            subscriptionService.reactivate(subscriptionId);
+            return HttpStatus.OK;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 }
