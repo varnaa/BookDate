@@ -2,6 +2,8 @@ package com.varnaa.bookdate.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.varnaa.bookdate.model.Customer;
+import com.varnaa.bookdate.model.Subscription;
+import com.varnaa.bookdate.service.CustomViewService;
 import com.varnaa.bookdate.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -19,6 +24,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private CustomViewService customViewService;
 
     @GetMapping("/{customerId}")
     public ResponseEntity<Customer> getCustomer(@PathVariable String customerId) {
@@ -55,4 +63,16 @@ public class CustomerController {
         return HttpStatus.NOT_FOUND;
     }
 
+    @GetMapping("/{customerId}/filter")
+    public List<Subscription> filterSubscription(@PathVariable("customerId") String customerId,
+                                                 @RequestParam Map<String, String> queryParameters) {
+        System.out.println(customerId);
+        System.out.println(queryParameters);
+        List<Subscription> result = new ArrayList<>();
+        result.addAll(customViewService.filterSubscription(queryParameters));
+        System.out.println("From controller-<" + result);
+        return result;
+    }
+
 }
+

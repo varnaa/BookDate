@@ -23,6 +23,9 @@ public class SubscriptionService {
     private SubscriptionRepostory subscriptionRepostory;
 
     @Autowired
+    private CustomViewService customViewService;
+
+    @Autowired
     private Logger logger;
 
     @Autowired
