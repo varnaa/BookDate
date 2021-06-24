@@ -1,14 +1,9 @@
 package com.varnaa.bookdate.service;
 
-import com.varnaa.bookdate.model.Plan;
 import com.varnaa.bookdate.model.Subscription;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,28 +13,6 @@ import java.util.Map;
  */
 
 
-class SubscriptionRowMapper implements RowMapper<Subscription> {
-    @Override
-    public Subscription mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Subscription subscription = new Subscription();
-        Plan plan = new Plan();
-        plan.setPlan_code(rs.getString("plan_code"));
-        plan.setBilling_cycles(rs.getInt("billing_cycles"));
-        plan.setPrice(rs.getInt("price"));
-        plan.setQuantity(rs.getInt("quantity"));
-
-        subscription.setPlan(plan);
-        subscription.setStatus(rs.getString("status"));
-        subscription.setExpiresAt(rs.getString("expires_at"));
-        subscription.setCustomerId(rs.getString("customer_id"));
-        subscription.setActivatedAt(rs.getString("activated_at"));
-        subscription.setNextBillingAt(rs.getString("next_billing_at"));
-        subscription.setLastBillingAt(rs.getString("last_billing_at"));
-        subscription.setSubscriptionId(rs.getString("subscription_id"));
-
-        return subscription;
-    }
-}
 
 @Component
 public class CustomViewService {
@@ -47,25 +20,32 @@ public class CustomViewService {
 
     private final HashMap<String, String> comparators;
     private final HashMap<String, String> filters;
-    @Autowired
-    JdbcTemplate db;
+    final JdbcTemplate db;
 
-    public CustomViewService() {
+    public CustomViewService(JdbcTemplate db) {
         this.comparators = initializeComparators();
         this.filters = initializeFilters();
+        this.db = db;
     }
 
     public List<Subscription> filterSubscription(Map<String, String> queryParameters) {
+        // generate query based on query params
         String generatedQuery = createQuery(queryParameters.get("attributeName"),
                                             queryParameters.get("comparator"),
                                             queryParameters.get("filterType"));
+        // makes call to db and returns result
         return fetchSubscription(generatedQuery);
     }
 
     private List<Subscription> fetchSubscription(String query) {
-        List<Subscription> subscriptionList = db.query(query, new SubscriptionRowMapper());
-        System.out.println(subscriptionList);
-        return subscriptionList;
+        try {
+            List<Subscription> subscriptionList = db.query(query, new SubscriptionRowMapper());
+            System.out.println(subscriptionList);
+            return subscriptionList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
@@ -107,22 +87,22 @@ public class CustomViewService {
     private HashMap<String, String> initializeFilters() {
         return new HashMap<>() {{
             put("today", "curdate()");
+            put("nextWeek", "(week(curdate()) + 1)");
+            put("previousWeek", "week(curdate()) - 1");
+            put("endingDateOfMonth", "last_day(curdate())");
             put("tomorrow", "adddate(curdate(), INTERVAL 1 DAY)");
             put("yesterday", "date_sub(curdate(), INTERVAL 1 DAY)");
-            put("startingDateOfWeek", "date_sub(curdate(), INTERVAL (DAYOFWEEK(curdate()) - 1) DAY)");
-            put("endingDateOfWeek", "date_add(curdate(),INTERVAL (7 - DAYOFWEEK(curdate())) DAY)");
-            put("nextWeek", "(week(curdate()) + 1)");
-            put("nextWeekStartingDate", "date_add(curdate(), INTERVAL (7-DAYOFWEEK(curdate()) + 1) DAY)");
-            put("nextWeekEndingDate", "date_add(curdate(), INTERVAL (7 - DAYOFWEEK(curdate())) + 7 DAY)");
-            put("previousWeek", "week(curdate()) - 1");
-            put("previousWeekStartingDate", "date_sub(curdate(), INTERVAL (DAYOFWEEK(curdate()) - 1) + 7 DAY)");
-            put("previousWeekEndingDate", "date_sub(curdate(), INTERVAL (DAYOFWEEK(curdate()) DAY)");
-            put("startingDateOfMonth", "last_day(curdate() - INTERVAL 1 MONTH) + 1 INTERVAL DAY)");
-            put("endingDateOfMonth", "last_day(curdate())");
-            put("nextMonthStartingDate", "last_day(curdate()) + INTERVAL 1 DAY)");
             put("nextMonthEndingDate", "last_day(curdate() + INTERVAL 1 MONTH) ");
-            put("previousMonthStartingDate", "last_day(curdate() - INTERVAL 2 MONTH) + 1 INTERVAL DAY)");
+            put("nextMonthStartingDate", "last_day(curdate()) + INTERVAL 1 DAY");
             put("previousMonthEndingDate", "last_day(curdate() - INTERVAL 1 MONTH)");
+            put("endingDateOfWeek", "date_add(curdate(),INTERVAL (7 - DAYOFWEEK(curdate())) DAY)");
+            put("startingDateOfMonth", "last_day(curdate()) - INTERVAL 1 MONTH + INTERVAL 1 DAY");
+            put("previousWeekEndingDate", "date_sub(curdate(), INTERVAL (DAYOFWEEK(curdate()) DAY)");
+            put("startingDateOfWeek", "date_sub(curdate(), INTERVAL (DAYOFWEEK(curdate()) - 1) DAY)");
+            put("previousMonthStartingDate", "last_day(curdate() - INTERVAL 2 MONTH) + INTERVAL 1 DAY");
+            put("nextWeekEndingDate", "date_add(curdate(), INTERVAL (7 - DAYOFWEEK(curdate())) + 7 DAY)");
+            put("nextWeekStartingDate", "date_add(curdate(), INTERVAL (7-DAYOFWEEK(curdate()) + 1) DAY)");
+            put("previousWeekStartingDate", "date_sub(curdate(), INTERVAL (DAYOFWEEK(curdate()) - 1) + 7 DAY)");
         }};
     }
 

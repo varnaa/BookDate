@@ -1,6 +1,5 @@
 package com.varnaa.bookdate.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.varnaa.bookdate.config.RestTemplateService;
 import com.varnaa.bookdate.deserializer.CustomDeserializer;
 import com.varnaa.bookdate.model.Customer;
@@ -28,7 +27,7 @@ public class CustomerService {
         return customerRepository.findByCustomerId(customerId);
     }
 
-    public Customer save(Customer customer) throws JsonProcessingException {
+    public Customer save(Customer customer) {
         try {
             ResponseEntity<String> responseEntity = restTemplateService.postCustomer(customer);
             logger.info("posted new customer to Zoho Subscription");
@@ -43,11 +42,10 @@ public class CustomerService {
         return null;
     }
 
-    public Customer update(Customer customer) throws JsonProcessingException {
+    public void update(Customer customer) {
         restTemplateService.updateCustomer(customer);
         customerRepository.save(customer);
         logger.info("customer successfully updated");
-        return customer;
     }
 
     public boolean deleteById(String customerId) {
